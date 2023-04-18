@@ -1,34 +1,24 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
+  <div>
+      <h1>TodoList</h1>
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+          <router-link to="/">Home</router-link> |
+          <router-link to="/login">Login</router-link> |
+          <router-link to="/register">Register</router-link> |
+          <button>Logout</button>
       </nav>
-    </div>
-  </header>
-
-  <RouterView />
-</template>
+      <router-view />
+  </div>
+  </template>
+  
+  <script setup>
+  
+  </script>
 
 <style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
 }
 
 nav {
@@ -39,7 +29,7 @@ nav {
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: var(--color-text, green);
 }
 
 nav a.router-link-exact-active:hover {
@@ -61,10 +51,6 @@ nav a:first-of-type {
     display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
   }
 
   header .wrapper {
