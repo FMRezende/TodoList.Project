@@ -14,8 +14,10 @@
     import {useUserStore} from '../stores/user'
     
     const userStore = useUserStore()
+
     const email = ref('')
     const password = ref('')
+    
     const handleSubmit = async() => {
         if(!email.value || password.value.length < 6){
             return alert('llena los campos')
