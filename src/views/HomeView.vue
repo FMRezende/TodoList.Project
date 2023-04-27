@@ -1,32 +1,22 @@
 
-
-<script>
-export default {
-  name: 'HomeView'
-  
-}
-</script>
-
 <template>
   <div>
-<main>
-  <h1>Home View</h1>
-</main>
+    <h1>Todo List555555555</h1>
+    <TaskList />
   </div>
 </template>
 
+<script>
+import TaskList from '../components/TaskList.vue';
 
+export default {
+  name: 'HomeView',
+  components: {
+    TaskList,
+  },
+};
+</script>
 
-<!--<template>
-  <div>
-      <h1>Home </h1>
-      <p>{{ userStore.userData }}</p>
-  </div>
-</template>
+<style scoped>
+</style>
 
-<script setup>
-import {useUserStore} from '../stores/user'
-
-const userStore = useUserStore()
-
-</script>-->

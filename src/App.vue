@@ -1,7 +1,7 @@
   <script>
   import { RouterLink, RouterView } from 'vue-router';
   import { mapActions} from 'pinia';
-  import UserStore from '@/stores/user.js';
+  import UserStore from './stores/user';
 
   export default{
     name: 'App',
@@ -30,7 +30,7 @@
       <router-view />
   </template>
 
-<style scoped>
+<!--<style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -74,4 +74,4 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
-</style>
+</style>-->

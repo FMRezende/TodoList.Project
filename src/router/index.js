@@ -2,31 +2,32 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AuthView from '../views/AuthView.vue'
 import SignInView from '../views/SignInView.vue'
-import signUpView from '../views/SignUpView.vue'
-import UserStore from '@/stores/user'
+import SignUpView from '../views/SignUpView.vue'
+import UserStore from '../stores/user'
+
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'HomeView',
       component: HomeView
     },
     {
       path: '/auth',
-      name: 'auth',
+      name: 'AuthView',
       component: AuthView,
       children: [
       {
         path: 'sign-in',
-        name: 'signIn',
+        name: 'SignIn',
         component: SignInView
       },
       {
         path: 'sign-up',
-        name: 'signUp',
-        component: signUpView
+        name: 'SignUp',
+        component: SignUpView
       },
       ],
     },
@@ -41,7 +42,7 @@ router.beforeEach((to) => {
     return { name: 'signIn'}
   }
 })
-export default router
+export default router;
 
 
 /*import { createRouter, createWebHistory } from "vue-router";
