@@ -1,22 +1,31 @@
-
-<template>
-  <div>
-    <h1>Todo List555555555</h1>
-    <TaskList />
-  </div>
-</template>
-
 <script>
-import TaskList from '../components/TaskList.vue';
+import userStore from '../stores/user.js';
+import { mapActions, mapState } from 'pinia';
 
-export default {
-  name: 'HomeView',
-  components: {
-    TaskList,
-  },
-};
+  export default {
+    name: "HomeView",
+    data () {
+      return {}
+    },
+    computed: {
+      ...mapState(userStore, ['user']),
+    },
+    methods: {
+      ...mapActions(userStore, ['signOut']),
+      async _handleLogOut() {
+        try {
+          await this.signOut()
+          this.$router.push({ name: 'signIn' })
+        } catch(err) {
+          console.error(err)
+        }
+      }
+    }
+  }
 </script>
-
-<style scoped>
-</style>
-
+<template>
+  <main>
+    <h1>Home View </h1>
+    <button @click="_handleLogOut">Log Out</button>
+  </main>
+</template>

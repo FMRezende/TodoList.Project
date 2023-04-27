@@ -1,7 +1,6 @@
   <script>
   import { RouterLink, RouterView } from 'vue-router';
-  import { mapActions} from 'pinia';
-  import UserStore from './stores/user';
+ 
 
   export default{
     name: 'App',
@@ -9,12 +8,8 @@
       RouterView,
       RouterLink
     },
-    methods: {
-      ...mapActions(UserStore, ['fetchUser'])
-    },
-    async created() {
-      await this.fetchUser()
-    }
+   
+    
   }
   </script>
 
