@@ -2,7 +2,6 @@
 import { mapState, mapActions } from 'pinia';
 import TodoStore from '../stores/tasks';
 import UserStore from '../stores/user.js';
-import supabase from '../supabase'
 export default {
     name: 'MyTable',
     data() {
@@ -38,19 +37,7 @@ export default {
             } catch (err) {
                 console.error(err)
             }
-        },
-        async deleteTask(title, userId) {
-        const { error } = await supabase
-      .from('countries')
-      .delete({ title, user_Id: userId })
-      .eq('id', 1)
-
-    if (error) {
-      console.error(error)
-      return
-    }
-    console.log()
-  }
+        }
     },
     created() {
         console.log('created en MyTable')
@@ -60,33 +47,33 @@ export default {
 </script>
 
 <template>
-    <div>
-        <h1>Lista de tareas</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Tarea</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="todo in tasksList" :key="todo.id">
-                    <td>{{ todo.title }}</td>
-                    <td>
-                        <button @click="_handleUpdateTask(todo)">Editar</button>
-                        <button @click="deleteTask(todo.id)">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="text" v-model='newTaskTitle' />
-                    </td>
-                    <td>
-                        <button @click="_handleNewTask()">Agregar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-    </div>
-    </template>
+<div>
+    <h1>Lista de tareas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Tarea</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="todo in tasksList" :key="todo.id">
+                <td>{{ todo.title }}</td>
+                <td>
+                    <button @click="showEditModal(todo)">Editar</button>
+                    <button @click="deleteTask(todo.id)">Eliminar</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" v-model='newTaskTitle' />
+                </td>
+                <td>
+                    <button @click="_addNewTask()">Agregar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class=" signout" @click="_handleLogOut">Log Out</button>
+</div>
+</template>

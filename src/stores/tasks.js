@@ -4,7 +4,9 @@ import supabase from '../supabase'
 export default defineStore('tasks', {
   state() {
     return {
-      tasksList: []
+        documents: [],
+        loadingDoc: false,
+        loading: false,
     }
   },
   actions: {
