@@ -16,9 +16,9 @@
 <template>
   <header>
     <div class="wrapper">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/auth/sign-in">Singn in</router-link> |
-      <router-link to="/auth/sign-up">Singn up</router-link> |
+      <router-link to="/">HOME</router-link> |
+      <router-link to="/auth/sign-in">SIGN IN</router-link> |
+      <router-link to="/auth/sign-up">SIGN UP</router-link> |
 
     </div>
   </header>

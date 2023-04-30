@@ -1,17 +1,19 @@
-
 <template>
-    <div class="signIn">
-      <h1 class="title">Sign In</h1>
-      <a-input v-model="email" placeholder="Email"></a-input>
-      <a-input-password v-model="password" placeholder="Password"></a-input-password>
-      <a-button type="primary" @click="signIn">Sign In</a-button>
-      <div class="signup-actions">
-        <router-link to="/">Sign In</router-link>
-      </div>
-    </div>
-  </template>
-  
-  <script>
+    <div>
+    <h1>SIGN IN</h1>
+    <form>
+      <label for="email">Email</label>
+      <input type="email" id="email" v-model="email">
+      
+      <label for="password">Password</label>
+      <input type="password" id="password" v-model="password">
+      
+      <button type="button" @click.prevent="_handleSignIn">Sign In</button>
+    </form>
+  </div>
+</template>
+
+<script>
 import { mapState, mapActions } from 'pinia';
 import userStore from '../stores/user.js';
 export default {
@@ -42,3 +44,6 @@ export default {
     }
 }
 </script>
+
+<style>
+</style>

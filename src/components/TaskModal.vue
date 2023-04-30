@@ -1,79 +1,92 @@
-<!--<template>
-    <a-modal title="Create Task" v-model="visible" @ok="createTask" @cancel="cancel">
-      <a-form ref="form" :form="form">
-        <a-form-item label="Task Name">
-          <a-input v-model="form.name"></a-input>
-        </a-form-item>
-        <a-form-item label="Description">
-          <a-input v-model="form.description"></a-input>
-        </a-form-item>
-      </a-form>
-      <template #footer>
-        <a-button key="back" @click="cancel">Cancel</a-button>
-        <a-button key="submit" type="primary" @click="createTask">
-          Create
-        </a-button>
-      </template>
-    </a-modal>
-  </template>
-  
-  <script>
-  import { defineComponent, ref } from 'vue';
-  
-  export default defineComponent({
-    props: {
-      visible: {
-        type: Boolean,
-        required: true
-    },
-  },
-  setup(props, { emit }) {
-    const form = ref(null);
-
-    const createTask = () => {
-      form.value
-        .validate()
-        .then(() => {
-          const task = {
-            name: form.value.getFieldValue('name'),
-            description: form.value.getFieldValue('description'),
-          };
-          emit('create', task);
-        })
-        .catch(() => {});
-    };
-
-    const cancel = () => {
-      emit('cancel');
-    };
-
-    return {
-      form,
-      createTask,
-      cancel,
-    };
-  },
-});
-</script>
-
-<style scoped>
-</style>-->
-<template>
-    <div>
-
-    </div>
-</template>
-
 <script>
+import { mapState, mapActions } from 'pinia';
+import TodoStore from '../stores/tasks';
+import UserStore from '../stores/user.js';
+import supabase from '../supabase'
 export default {
-    setup () {
-        
+    name: 'MyTable',
+    data() {
+        return {
+            newTaskTitle: '',
+            updateTaskTitle: '',
+            updatingTask: null,
+        }
+    },
+    computed: {
+        ...mapState(TodoStore, ['tasksList']),
+        ...mapState(UserStore, ['user']),
+    },
+    methods: {
+        ...mapActions(TodoStore, ['_fetchAllTasks', '_addNewTask', '_editTask']),
+        async _handleNewTask() {
+            try {
+                await this._addNewTask({ title: this.newTaskTitle, user_id: this.user.id })
+                this.newTaskTitle = ''
+            } catch (err) {
+                console.error(err)
+            }
+        },
+        _handleEditTask(todo) {
+            this.updatingTask = todo;
+            this.updateTaskTitle = this.updatingTask.title;
+        },
+        async _handleUpdateTask() {
+            try {
+                await this._editTask({ title: this.updateTaskTitle, id: this.updatingTask.id })
+                this.updatingTask = null;
+                this.updateTaskTitle = '';
+            } catch (err) {
+                console.error(err)
+            }
+        },
+        async deleteTask(title, userId) {
+        const { error } = await supabase
+      .from('countries')
+      .delete({ title, user_Id: userId })
+      .eq('id', 1)
 
-        return {}
+    if (error) {
+      console.error(error)
+      return
     }
+    console.log()
+  }
+    },
+    created() {
+        console.log('created en MyTable')
+        this._fetchAllTasks()
+    },
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<template>
+    <div>
+        <h1>Lista de tareas</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tarea</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="todo in tasksList" :key="todo.id">
+                    <td>{{ todo.title }}</td>
+                    <td>
+                        <button @click="_handleUpdateTask(todo)">Editar</button>
+                        <button @click="deleteTask(todo.id)">Eliminar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" v-model='newTaskTitle' />
+                    </td>
+                    <td>
+                        <button @click="_handleNewTask()">Agregar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    </template>
