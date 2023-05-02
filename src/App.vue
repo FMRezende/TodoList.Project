@@ -1,29 +1,28 @@
-  <script>
-  import { RouterLink, RouterView } from 'vue-router';
- 
+<script>
+import { RouterLink, RouterView } from 'vue-router';
 
-  export default{
-    name: 'App',
-    components: {
-      RouterView,
-      RouterLink
-    },
-   
-    
-  }
-  </script>
+export default{
+  name: 'App',
+  components: {
+    RouterView,
+    RouterLink
+  },
+ 
+  
+}
+</script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <router-link to="/">HOME</router-link> |
-      <router-link to="/auth/sign-in">SIGN IN</router-link> |
-      <router-link to="/auth/sign-up">SIGN UP</router-link> |
+<header>
+  <div class="wrapper">
+    <router-link to="/">HOME</router-link> |
+    <router-link to="/auth/sign-in">SIGN IN</router-link> |
+    <router-link to="/auth/sign-up">SIGN UP</router-link> |
 
-    </div>
-  </header>
-      <router-view />
-  </template>
+  </div>
+</header>
+    <router-view />
+</template>
 
 <!--<style scoped>
 header {
