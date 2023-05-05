@@ -1,71 +1,51 @@
-<script>
-import { RouterLink, RouterView } from 'vue-router';
-
-export default{
-  name: 'App',
-  components: {
-    RouterView,
-    RouterLink
-  },
- 
-  
-}
-</script>
-
 <template>
-<header>
-  <div class="wrapper">
-    <router-link to="/">HOME</router-link> |
-    <router-link to="/auth/sign-in">SIGN IN</router-link> |
-    <router-link to="/auth/sign-up">SIGN UP</router-link> |
-
+  <div>
+    <nav class="navbar navbar-dark bg-dark">
+      <router-link class="navbar-brand" to="/">Home</router-link>
+      <ul class="navbar-nav">
+        <li class="nav-item" v-if="!userStore.user">
+          <router-link class="nav-link" to="/login">Login</router-link>
+        </li>
+        <li class="nav-item" v-if="!userStore.user">
+          <router-link class="nav-link" to="/register">Register</router-link>
+        </li>
+        <li class="nav-item" v-if="userStore.user">
+          <a class="nav-link" href="#" @click="userStore.signOut">Logout</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container-fluid mt-3">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div v-if="userStore.loadingSession">loading user...</div>
+          <router-view></router-view>
+        </div>
+      </div>
+    </div>
   </div>
-</header>
-    <router-view />
 </template>
 
-<!--<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<script setup>
+import { ref, watch } from "vue";
+import { useUserStore } from "./stores/user";
+import { useRoute } from "vue-router";
+
+const userStore = useUserStore();
+const route = useRoute();
+const selectedKeys = ref([]);
+
+watch(() => route.name, () => {
+  selectedKeys.value = [route.name];
+});
+</script>
+
+<style>
+.container {
+  background-color: #fff;
+  padding: 24px;
+  min-height: calc(100vh - 64px);
 }
-nav {
-  width: 100%;
-  font-size: 12px;
+.text-center {
   text-align: center;
-  margin-top: 2rem;
 }
-nav a.router-link-exact-active {
-  color: var(--color-text, green);
-}
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-nav a:first-of-type {
-  border: 0;
-}
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>-->
+</style>

@@ -1,5 +1,5 @@
 {
-  "name": "todolist-project",
+  "name": "praticandoprojeto",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -10,8 +10,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.20.0",
-    "ant-design-vue": "^3.2.19",
+    "@supabase/supabase-js": "^2.21.0",
+    "ant-design-vue": "^2.2.8",
+    "bootstrap": "^4.5.3",
     "pinia": "^2.0.32",
     "unplugin-vue-components": "^0.24.1",
     "vue": "^3.2.47",

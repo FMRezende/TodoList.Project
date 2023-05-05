@@ -1,55 +1,46 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AuthView from '../views/AuthView.vue'
-import SignInView from '../views/SignInView.vue'
-import SignUpView from '../views/SignUpView.vue'
-import UserStore from '../stores/user.js'
+import { createRouter, createWebHistory } from "vue-router";
+
+import HomeView from "../views/HomeView.vue";
+import EditarView from "../views/EditarView.vue";
+import LoginView from "../views/LoginView.vue";
+import RegisterView from "../views/RegisterView.vue";
+import { useUserStore } from "../stores/user";
+
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes: [
+    history: createWebHistory(),
+
+
+routes : [
+    { path: "/", component: HomeView,name: "home", meta: { requiresAuth: true }  },
     {
-      path: '/',
-      name: 'home',
-      component: HomeView,
-      meta: {
-        requiresAuth: true
-      }
+        path: "/editar/:id",
+        component: EditarView,
+        name: "editar",
+        meta: { requiresAuth: true }
     },
-    {
-      path: '/auth',
-      name: 'auth',
-      component: AuthView,
-      children: [
-        {
-          path: 'sign-in',
-          name: 'signIn',
-          component: SignInView,
-        },
-        {
-          path: 'sign-up',
-          name: 'signUp',
-          component: SignUpView,
-        },
-      ]
-    },
-  ],
-})
-
-
-router.beforeEach(async (to) => {
-  const { name, meta } = to
-  const store = UserStore();
-  await store.fetchUser();
-  const { user } = store
-  console.log(user)
-
-  if(meta.requiresAuth && user === null){
-    return {name: 'signIn'}
-  }
-  if ((name === 'signIn' || name === 'signUp') && user !== null) {
-    return {name:'home'}
-  }
+    { path: "/login", component: LoginView, name: "login" },
+    { path: "/register", component: RegisterView, name: "register" },
+]
 });
 
-export default router
+router.beforeEach(async (to) => {
+    const store = useUserStore()
+  
+    if (store.user === undefined) {
+      await store.fetchUser()
+    }
+  
+    console.log('beforeEach')
+    console.log(store.user)
+    
+    if (to.meta.requiresAuth && store.user === null) {
+      return { name: "login" }
+    }
+    if ((to.name === "login" || to.name === "signup") && store.user !== null) {
+      return { name: "home" }
+    }
+  })
+  
+
+export default router;
