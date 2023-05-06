@@ -36,8 +36,11 @@
 
 import { reactive } from "vue";
 import { useUserStore } from "../stores/user";
+import {useRouter} from 'vue-router'
 
 
+
+const router = useRouter()
 const userStore = useUserStore();
 const formState = reactive({
     email: "",
@@ -50,6 +53,7 @@ const onFinish = async (values) => {
         formState.password,
         
     );
+    router.push({path: "/"});
     if (!error) {
         alert("Bienvenidos a la super apps ");
     }

@@ -1,4 +1,3 @@
-Copy code
 <template>
   <div class="container">
     <h1 class="my-5">Home Ruta protegida</h1>
@@ -15,19 +14,23 @@ Copy code
             <h5 class="card-title">{{ item.title }}</h5>
             <div class="mt-2">
               <div class="form-check form-check-inline">
-                <input type="radio" id="radio-1" class="form-check-input" value="To-do" @click="handleIncompleteTask(item)">
-                <lable for="radio-1" class="form-check-lable">To-do</lable>
+                <input type="radio" id="radio-1" class="form-check-input" value="To-do" v-model="selectedStatus"
+                  @click="handleIncompleteTask(item)">
+                <label for="radio-1" class="form-check-label">To-do</label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" id="radio-2" class="form-check-input" value="Done" @click="handleCompleteTask(item)">
-                <lable for="radio-2" class="form-check-lable">Done</lable>
+                <input type="radio" id="radio-2" class="form-check-input" value="Done" v-model="selectedStatus"
+                  @click="handleCompleteTask(item)">
+                <label for="radio-2" class="form-check-label">Done</label>
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <button type="button" class="btn btn-primary me-3" @click="router.push(`/editar/${item.id}`)">Editar</button>
+                <button type="button" class="btn btn-primary me-3"
+                  @click="router.push(`/editar/${item.id}`)">Editar</button>
                 <div class="d-inline">
-                  <button type="button" class="btn btn-danger" data-toggle="popover" data-trigger="focus" data-content="¿Estás seguro que deseas eliminar?" @click="confirm(item.id)">Eliminar</button>
+                  <button type="button" class="btn btn-danger" data-toggle="popover" data-trigger="focus"
+                    data-content="¿Estás seguro que deseas eliminar?" @click="confirm(item.id)">Eliminar</button>
                 </div>
               </div>
             </div>
@@ -49,6 +52,8 @@ const userStore = useUserStore();
 const databaseStore = useDatabaseStore();
 const router = useRouter();
 
+const selectedStatus = "To-do";
+
 const confirm = async (id) => {
   const { error } = await databaseStore.deleteTarea(id);
   if (!error) {
@@ -60,8 +65,8 @@ const confirm = async (id) => {
 
 const handleCompleteTask = async (item) => {
   try {
-    await databaseStore.completeTask({ id: item.id });
-    item.is_complete = true;
+    await databaseStore.completeTask(item.id);
+
   } catch (error) {
     alert(error);
   }
@@ -69,7 +74,7 @@ const handleCompleteTask = async (item) => {
 
 const handleIncompleteTask = async (item) => {
   try {
-    await databaseStore.incompleteTask({ id: item.id });
+    await databaseStore.incompleteTask(item.id);
   } catch (error) {
     alert(error);
   }

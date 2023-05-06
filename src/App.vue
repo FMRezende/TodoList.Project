@@ -10,7 +10,8 @@
           <router-link class="nav-link" to="/register">Register</router-link>
         </li>
         <li class="nav-item" v-if="userStore.user">
-          <a class="nav-link" href="#" @click="userStore.signOut">Logout</a>
+          <a class="nav-link" href="#" @click="handleSignOut">Logout</a>
+
         </li>
       </ul>
     </nav>
@@ -28,11 +29,18 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useUserStore } from "./stores/user";
-import { useRoute } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
 const userStore = useUserStore();
+const router = useRouter();
 const route = useRoute();
 const selectedKeys = ref([]);
+
+const handleSignOut = async () => {
+  await userStore.signOut()
+  router.push({ path: "/login" })
+
+}
 
 watch(() => route.name, () => {
   selectedKeys.value = [route.name];
@@ -45,6 +53,7 @@ watch(() => route.name, () => {
   padding: 24px;
   min-height: calc(100vh - 64px);
 }
+
 .text-center {
   text-align: center;
 }

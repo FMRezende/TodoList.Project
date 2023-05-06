@@ -102,6 +102,7 @@ export const useDatabaseStore = defineStore('tasks', {
     },
 
     async completeTask(id) {
+      console.log(id)
       const { error } = await supabase
         .from('tasks')
         .update({ is_complete: true })

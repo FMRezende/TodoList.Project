@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { supabase } from "../supabase";
-import router from "../router/index";
+
 
 export const useUserStore = defineStore("userStore", {
   state: () => ({
@@ -24,8 +24,7 @@ export const useUserStore = defineStore("userStore", {
         email,
         password,
       });
-      this.user = { email: user.email, uid: user.uid };
-      router.push({path: "/"});
+          
 
       if (error) throw error;
       if (user) this.user = user
@@ -46,8 +45,8 @@ export const useUserStore = defineStore("userStore", {
       });
       if (error) throw error;
       if (user) {
-        this.user = { email: user.email, uid: user.id };
-        router.push({path: "/"});
+        this.user = user;
+      
       }
       
     },
@@ -60,7 +59,7 @@ export const useUserStore = defineStore("userStore", {
         this.user = null;
         this.loadingSession = null;
         console.log(`Pinia user after signOut is ${JSON.stringify(this.user)}`);
-        router.push({ path: "/login" })
+    
         return error;
       } catch (e) {
         console.log(`Error from userStore signOut() is ${e}`);
