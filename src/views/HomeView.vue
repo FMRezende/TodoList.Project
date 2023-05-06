@@ -14,12 +14,12 @@
             <h5 class="card-title">{{ item.title }}</h5>
             <div class="mt-2">
               <div class="form-check form-check-inline">
-                <input type="radio" id="radio-1" class="form-check-input" value="To-do" v-model="selectedStatus"
+                <input type="radio" id="radio-1" class="form-check-input" value="To-do" v-model="item.selectedStatus"
                   @click="handleIncompleteTask(item)">
                 <label for="radio-1" class="form-check-label">To-do</label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" id="radio-2" class="form-check-input" value="Done" v-model="selectedStatus"
+                <input type="radio" id="radio-2" class="form-check-input" value="Done" v-model="item.selectedStatus"
                   @click="handleCompleteTask(item)">
                 <label for="radio-2" class="form-check-label">Done</label>
               </div>
@@ -52,7 +52,7 @@ const userStore = useUserStore();
 const databaseStore = useDatabaseStore();
 const router = useRouter();
 
-const selectedStatus = "To-do";
+
 
 const confirm = async (id) => {
   const { error } = await databaseStore.deleteTarea(id);
@@ -82,5 +82,6 @@ const handleIncompleteTask = async (item) => {
 
 onBeforeMount(async () => {
   await databaseStore.fetchAllTasks();
+  
 });
 </script>
