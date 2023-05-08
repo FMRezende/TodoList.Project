@@ -14,13 +14,13 @@
             <h5 class="card-title">{{ item.title }}</h5>
             <div class="mt-2">
               <div class="form-check form-check-inline">
-                <input type="radio" id="radio-1" class="form-check-input" value="To-do" v-model="item.selectedStatus"
-                  @click="handleIncompleteTask(item)">
+                <input type="radio" id="radio-1" class="form-check-input" value="To-do"
+                  :checked="itemSelections[item.id] === 'To-do'" @click="handleIncompleteTask(item)">
                 <label for="radio-1" class="form-check-label">To-do</label>
               </div>
               <div class="form-check form-check-inline">
-                <input type="radio" id="radio-2" class="form-check-input" value="Done" v-model="item.selectedStatus"
-                  @click="handleCompleteTask(item)">
+                <input type="radio" id="radio-2" class="form-check-input" value="Done"
+                  :checked="itemSelections[item.id] === 'Done'" @click="handleCompleteTask(item)">
                 <label for="radio-2" class="form-check-label">Done</label>
               </div>
             </div>
@@ -45,14 +45,14 @@
 import { useUserStore } from "../stores/user";
 import { useDatabaseStore } from "../stores/database";
 import { useRouter } from "vue-router";
-import { onBeforeMount } from "vue";
+import { onBeforeMount, ref } from "vue";
 import AddForm from '../components/AddForm.vue'
 
 const userStore = useUserStore();
 const databaseStore = useDatabaseStore();
 const router = useRouter();
 
-
+const itemSelections = ref({});
 
 const confirm = async (id) => {
   const { error } = await databaseStore.deleteTarea(id);
@@ -66,7 +66,8 @@ const confirm = async (id) => {
 const handleCompleteTask = async (item) => {
   try {
     await databaseStore.completeTask(item.id);
-
+    itemSelections.value[item.id] = 'Done';
+    localStorage.setItem(`selectedStatus-${item.id}`, 'Done'); // Add this line
   } catch (error) {
     alert(error);
   }
@@ -75,13 +76,20 @@ const handleCompleteTask = async (item) => {
 const handleIncompleteTask = async (item) => {
   try {
     await databaseStore.incompleteTask(item.id);
+    itemSelections.value[item.id] = 'To-do';
+    localStorage.setItem(`selectedStatus-${item.id}`, 'To-do'); // Add this line
   } catch (error) {
     alert(error);
   }
-};
+}
 
 onBeforeMount(async () => {
   await databaseStore.fetchAllTasks();
-  
+  databaseStore.documents.forEach(item => {
+    const selectedStatus = localStorage.getItem(`selectedStatus-${item.id}`);
+    if (selectedStatus) {
+      itemSelections.value[item.id] = selectedStatus;
+    }
+  });
 });
 </script>

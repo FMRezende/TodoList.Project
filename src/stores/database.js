@@ -111,7 +111,7 @@ export const useDatabaseStore = defineStore('tasks', {
       this.documents = this.documents.filter((item) => item.id !== id)
     },
 
-    async _fetchTasks() {
+    async fetchTasks() {
       try {
         const { data: tasks, error } = await supabase
           .from('tasks')
