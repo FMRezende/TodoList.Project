@@ -1,38 +1,39 @@
 <template>
-  <div class="container">
-    <h1 class="my-5">Home Ruta protegida</h1>
-    <p>{{ userStore.user?.email }}</p>
+  <div class="container py-5">
+    <h1 class="my-5 text-primary">Home Ruta protegida</h1>
+    <p class="mb-4">Welcome, {{ userStore.user?.email }}</p>
 
     <AddForm></AddForm>
 
-    <p v-if="databaseStore.loadingDoc">loading docs...</p>
+    <p v-if="databaseStore.loadingDoc">Loading documents...</p>
 
     <div class="my-5">
       <div v-if="!databaseStore.loadingDoc">
-        <div v-for="item of databaseStore.documents" :key="item.id" class="card mb-3">
+        <div v-for="item of databaseStore.documents" :key="item.id" class="card mb-3 shadow">
           <div class="card-body">
-            <h5 class="card-title">{{ item.title }}</h5>
+            <h5 class="card-title text-primary">{{ item.title }}</h5>
             <div class="mt-2">
               <div class="form-check form-check-inline">
                 <input type="radio" id="radio-1" class="form-check-input" value="To-do"
                   :checked="itemSelections[item.id] === 'To-do'" @click="handleIncompleteTask(item)">
-                <label for="radio-1" class="form-check-label">To-do</label>
+                <label for="radio-1" class="form-check-label text-primary">To-do</label>
               </div>
               <div class="form-check form-check-inline">
                 <input type="radio" id="radio-2" class="form-check-input" value="Done"
                   :checked="itemSelections[item.id] === 'Done'" @click="handleCompleteTask(item)">
-                <label for="radio-2" class="form-check-label">Done</label>
+                <label for="radio-2" class="form-check-label text-success">Done</label>
               </div>
             </div>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center mt-3">
               <div>
-                <button type="button" class="btn btn-primary me-3"
-                  @click="router.push(`/editar/${item.id}`)">Editar</button>
+                <button type="button" class="btn btn-primary mr-3"
+                  @click="router.push(`/editar/${item.id}`)">Edit</button>
                 <div class="d-inline">
                   <button type="button" class="btn btn-danger" data-toggle="popover" data-trigger="focus"
-                    data-content="¿Estás seguro que deseas eliminar?" @click="confirm(item.id)">Eliminar</button>
+                    data-content="Are you sure you want to delete?" @click="confirm(item.id)">Delete</button>
                 </div>
               </div>
+              <div class="text-black-50">{{ item.createdAt }}</div>
             </div>
           </div>
         </div>
