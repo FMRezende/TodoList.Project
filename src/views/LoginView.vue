@@ -1,4 +1,5 @@
 <template>
+    <h1 class="text-center text-primary mt-5 mb-4">TODO LIST</h1>
   <div class="container mt-5">
     <h1 class="text-center mb-4">Login</h1>
     <div class="row justify-content-center">
@@ -38,7 +39,7 @@
 <script setup>
 import { reactive } from "vue";
 import { useUserStore } from "../stores/user";
-import {useRouter} from 'vue-router';
+import { useRouter } from 'vue-router';
 
 const router = useRouter()
 const userStore = useUserStore();
@@ -46,31 +47,34 @@ const formState = reactive({
   email: "",
   password: "",
 });
-const onFinish = async (values) => {
-  console.log("Success:", values);
-  const error = await userStore.signIn(
-      formState.email,
-      formState.password,
-      
-  );
-  router.push({path: "/"});
-  if (!error) {
-      alert("Bienvenidos a la super apps ");
-  }
-  switch (error) {
-      case "auth/user-not-found":
-          alert("No existe el correo registrado ");
-          break;
-      case "auth/wrong-password":
-          alert("Error de contraseña ");
-          break;
-      default:
-          alert(
-              "Ocurrió un error en el servidor intentelo más tarde..."
-          );
-          break;
+
+const onFinish = async () => {
+  if (document.querySelector('form').checkValidity()) {
+    console.log("Success:", formState);
+    const error = await userStore.signIn(
+        formState.email,
+        formState.password,
+    );
+    router.push({ path: "/" });
+    if (!error) {
+        alert("Bienvenidos a la super apps");
+    }
+    switch (error) {
+        case "auth/user-not-found":
+            alert("No existe el correo registrado");
+            break;
+        case "auth/wrong-password":
+            alert("Error de contraseña");
+            break;
+        default:
+            break;
+    }
+  } else {
+    console.log("Failed: form is invalid");
+    document.querySelector('form').reportValidity();
   }
 };
+
 const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };

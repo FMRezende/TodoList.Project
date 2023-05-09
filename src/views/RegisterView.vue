@@ -1,4 +1,5 @@
 <template>
+  <h1 class="text-center text-primary mt-5 mb-4">TODO LIST</h1>
   <div class="container">
     <h1 class="text-center mt-5 mb-4">Register</h1>
     <div class="row justify-content-center">
@@ -36,12 +37,11 @@
     </div>
   </div>
 </template>
-
 <script setup>
 import { reactive } from "vue";
 import { useUserStore } from "../stores/user";
 import { useRouter } from 'vue-router';
-
+/////////////////////
 const router = useRouter()
 const userStore = useUserStore();
 const formState = reactive({
@@ -49,19 +49,38 @@ const formState = reactive({
   password: "",
   repassword: "",
 });
+
+
 const onFinish = async () => {
+  if (!validateEmail(formState.email)) {
+    alert("Please enter a valid email.");
+    return;
+  }
+  if (formState.password.length < 6) {
+    alert("Please enter a password with at least 6 characters.");
+    return;
+  }
+  if (formState.password !== formState.repassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+
   const error = await userStore.signUp(formState.email, formState.password);
   router.push({ path: "/" });
   if (!error) {
-    alert("Revisa tu correo electrónico y verifícalo");
+    alert("Please check your email and verify your account.");
   }
   switch (error) {
     case "auth/email-already-in-use":
-      alert("Email ya registrado");
+      alert("This email is already registered.");
       break;
     default:
-      alert("Ocurrió un error en el servidor intentelo más tarde...");
-      break;
+     
   }
 };
+
+function validateEmail(email) {
+  const re = /\S+@\S+\.\S+/;
+  return re.test(email);
+}
 </script>

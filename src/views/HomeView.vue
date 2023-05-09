@@ -1,6 +1,6 @@
 <template>
   <div class="container py-5">
-    <h1 class="my-5 text-primary">Home Ruta protegida</h1>
+    <h1 class="my-5 text-primary">Your Todo List</h1>
     <p class="mb-4">Welcome, {{ userStore.user?.email }}</p>
 
     <AddForm></AddForm>
@@ -56,7 +56,8 @@ const router = useRouter();
 const itemSelections = ref({});
 
 const confirm = async (id) => {
-  const { error } = await databaseStore.deleteTarea(id);
+  const result = await databaseStore.deleteTarea(id);
+  const error = result && result.error;
   if (!error) {
     alert("Se eliminó con éxito ");
   } else {
@@ -64,11 +65,12 @@ const confirm = async (id) => {
   }
 };
 
+
 const handleCompleteTask = async (item) => {
   try {
     await databaseStore.completeTask(item.id);
     itemSelections.value[item.id] = 'Done';
-    localStorage.setItem(`selectedStatus-${item.id}`, 'Done'); // Add this line
+    localStorage.setItem(`selectedStatus-${item.id}`, 'Done'); 
   } catch (error) {
     alert(error);
   }
@@ -78,7 +80,7 @@ const handleIncompleteTask = async (item) => {
   try {
     await databaseStore.incompleteTask(item.id);
     itemSelections.value[item.id] = 'To-do';
-    localStorage.setItem(`selectedStatus-${item.id}`, 'To-do'); // Add this line
+    localStorage.setItem(`selectedStatus-${item.id}`, 'To-do'); 
   } catch (error) {
     alert(error);
   }

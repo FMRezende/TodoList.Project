@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h1 class="text-primary">Editar tarea con ID: {{ route.params.id }}</h1>
+    <h4 class="text-primary">Editar tarea con ID: {{ route.params.id }}</h4>
     <form @submit.prevent="onFinish" class="mt-3">
       <div class="form-group">
         <label for="tarea" class="text-dark">Ingrese una tarea</label>
@@ -9,13 +9,15 @@
           class="form-control"
           id="tarea"
           v-model="formState.tarea"
+          :class="{'is-invalid': formErrors.tarea}"
           required
         />
+        <div class="invalid-feedback">{{ formErrors.tarea }}</div>
       </div>
       <button
         type="submit"
         class="btn btn-primary"
-        :disabled="databaseStore.loading"
+        :disabled="databaseStore.loading || formErrors.tarea"
       >
         {{ databaseStore.loading ? 'Cargando...' : 'Editar Tarea' }}
       </button>
@@ -35,25 +37,36 @@ const route = useRoute();
 const formState = reactive({
   tarea: "",
 });
+const formErrors = reactive({
+  tarea: null,
+});
+
 const onFinish = async () => {
-  console.log("todo correcto");
+  if (!validateForm()) {
+    return;
+  }
+
   const error = await databaseStore.updateTarea(route.params.id, formState.tarea);
   if (!error) {
       formState.tarea = "";
       alert("Tarea editada");
   }
   router.push({path: "/"});
-  switch (error) {
-      // buscar errores de firestore
-      default:
-          alert(
-              "Ocurrió un error en el servidor intentelo más tarde..."
-          );
-          break;
-  }
+ 
 };
+
+const validateForm = () => {
+  let isValid = true;
+  if (formState.tarea.trim() === "") {
+    formErrors.tarea = "La tarea es requerida";
+    isValid = false;
+  } else {
+    formErrors.tarea = null;
+  }
+  return isValid;
+};
+
 onMounted(async () => {
-  
   const { documents } = databaseStore;
   const task = documents.find((task) => task.id === route.params.id);
   if (task) {
@@ -101,5 +114,9 @@ onMounted(async () => {
   input[type="text"]:focus {
     border-color: #007bff;
     box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+  }
+
+  .is-invalid {
+    border-color: #dc3545;
   }
 </style>
