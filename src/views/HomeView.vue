@@ -1,7 +1,9 @@
 <template>
   <div class="container py-5">
-    <h1 class="my-5 text-primary">Your Todo List</h1>
-    <p class="mb-4">Welcome, {{ userStore.user?.email }}</p>
+    
+    <h1 class="my-5 text-center text-primary">Your To-do app</h1>
+    <img class="img-fluid mx-auto d-block mb-4" src="../images/box.1.jpg" alt="Vue logo" style="max-width: 20%">
+<p class="mt-4 mb-4">Welcome, {{ userStore.user?.email }}</p>
 
     <AddForm></AddForm>
 
