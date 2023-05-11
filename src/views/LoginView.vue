@@ -1,6 +1,6 @@
 <template>
- <h1 class="text-center text-primary mt-5 mb-4">To-do app</h1>
-  <img class="img-fluid mx-auto d-block" src="../images/box.1.jpg" alt="Vue logo" style="max-width: 20%">
+    <h1 class="text-center text-primary mt-5 mb-4">TODO LIST</h1>
+    <img class="img-fluid mx-auto d-block" src="../images/box.1.jpg" alt="Vue logo" style="max-width: 20%">
 
   <div class="container mt-5">
     <h1 class="text-center mb-4">Login</h1>
