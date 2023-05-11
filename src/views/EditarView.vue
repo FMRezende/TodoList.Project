@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h4 class="text-primary">Editar tarea con ID: {{ route.params.id }}</h4>
+    <h4 class="text-primary">Editar tarea</h4>
     <form @submit.prevent="onFinish" class="mt-3">
       <div class="form-group">
         <label for="tarea" class="text-dark">Ingrese una tarea</label>
