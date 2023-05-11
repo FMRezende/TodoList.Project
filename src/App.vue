@@ -2,7 +2,8 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <router-link class="navbar-brand" to="/">Home</router-link>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -22,7 +23,8 @@
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-md-8">
-          <div v-if="userStore.loadingSession" class="text-center"><span class="spinner-border"></span> Loading user...</div>
+          <div v-if="userStore.loadingSession" class="text-center"><span class="spinner-border"></span> Loading user...
+          </div>
           <router-view></router-view>
         </div>
       </div>
@@ -54,7 +56,7 @@ watch(() => route.name, () => {
   background-color: #f8f9fa;
   border-radius: 10px;
   padding: 24px;
-  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
 }
 
 .spinner-border {
@@ -70,10 +72,15 @@ watch(() => route.name, () => {
 }
 
 @-webkit-keyframes spinner-border {
-  to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes spinner-border {
-  to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
-}
-</style>
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}</style>
