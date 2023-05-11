@@ -1,35 +1,67 @@
-# TodoList.Project
+### Hi, I'm Felipe
 
-This template should help get you started developing with Vue 3 in Vite.
+<h1 align= "center">
+<img src="./src/images/project.jpg"/>
+</h1>
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## About
 
-## Customize configuration
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+**To-do app** El proyecto consiste en crear una aplicación de tareas sencillas con Vue.js que permita a los usuarios: 
 
-## Project Setup
+Crear una cuenta;
+Registrar tareas;
+Editarlas y 
+Marcarlas como completadas.
 
-```sh
-npm install
+
+> Description.
+
+## Built With
+
+- Vue3
+- Pinia
+- Supabase
+- Bootstrap
+
+## Live Demo (if available)
+
+[Template]https://github.com/FMRezende/TodoList.Project/tree/master
+
+## Getting Started
+
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+--Npm 
+--Text editor (VsCode)
+
+### Install
+
+Instal To-do app with npm
+
+```bash
+npm install TodoList.Project
+cd TodoList.Project
 ```
 
-### Compile and Hot-Reload for Development
+## Authors
 
-```sh
-npm run dev
-```
+👤 **Author1**
 
-### Compile and Minify for Production
+- GitHub: [https://github.com/FMRezende]
+- LinkedIn: [https://www.linkedin.com/in/felipe-meira-de-rezende-55938286/]
 
-```sh
-npm run build
-```
+## 🤝 Contributing
 
-### Lint with [ESLint](https://eslint.org/)
+Contributions, issues, and feature requests are welcome!
 
-```sh
-npm run lint
+## Show your support
+
+Give a ⭐️ if you like this project!
+
+## Acknowledgments
+
 ```
