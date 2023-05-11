@@ -71,7 +71,7 @@ const handleCompleteTask = async (item) => {
   try {
     await databaseStore.completeTask(item.id);
     itemSelections.value[item.id] = 'Done';
-    localStorage.setItem(`selectedStatus-${item.id}`, 'Done'); 
+    localStorage.setItem(`selectedStatus-${item.id}`, 'Done');
   } catch (error) {
     alert(error);
   }
@@ -81,7 +81,7 @@ const handleIncompleteTask = async (item) => {
   try {
     await databaseStore.incompleteTask(item.id);
     itemSelections.value[item.id] = 'To-do';
-    localStorage.setItem(`selectedStatus-${item.id}`, 'To-do'); 
+    localStorage.setItem(`selectedStatus-${item.id}`, 'To-do');
   } catch (error) {
     alert(error);
   }

@@ -1,6 +1,6 @@
 <template>
-    <h1 class="text-center text-primary mt-5 mb-4">To-do app</h1>
-    <img class="img-fluid mx-auto d-block" src="../images/box.1.jpg" alt="Vue logo" style="max-width: 20%">
+  <h1 class="text-center text-primary mt-5 mb-4">To-do app</h1>
+  <img class="img-fluid mx-auto d-block" src="../images/box.1.jpg" alt="Vue logo" style="max-width: 20%">
 
   <div class="container mt-5">
     <h1 class="text-center mb-4">Login</h1>
@@ -8,14 +8,16 @@
       <div class="col-sm-12 col-md-6">
         <form @submit.prevent="onFinish" @invalid="onFinishFailed" class="needs-validation" novalidate>
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="email" required v-model="formState.email" placeholder="Ingresa tu correo">
+            <input type="email" class="form-control" id="email" required v-model="formState.email"
+              placeholder="Ingresa tu correo">
             <label for="email">Ingrese tu correo</label>
             <div class="invalid-feedback">
               Ingresa un email válido.
             </div>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="password" minlength="6" required v-model="formState.password" placeholder="Ingresa tu contraseña">
+            <input type="password" class="form-control" id="password" minlength="6" required v-model="formState.password"
+              placeholder="Ingresa tu contraseña">
             <label for="password">Ingrese contraseña</label>
             <div class="invalid-feedback">
               Ingresa una contraseña con mínimo 6 carácteres.
@@ -54,22 +56,22 @@ const onFinish = async () => {
   if (document.querySelector('form').checkValidity()) {
     console.log("Success:", formState);
     const error = await userStore.signIn(
-        formState.email,
-        formState.password,
+      formState.email,
+      formState.password,
     );
     router.push({ path: "/" });
     if (!error) {
-        alert("Bienvenidos a la super apps");
+      alert("Bienvenidos a la super apps");
     }
     switch (error) {
-        case "auth/user-not-found":
-            alert("No existe el correo registrado");
-            break;
-        case "auth/wrong-password":
-            alert("Error de contraseña");
-            break;
-        default:
-            break;
+      case "auth/user-not-found":
+        alert("No existe el correo registrado");
+        break;
+      case "auth/wrong-password":
+        alert("Error de contraseña");
+        break;
+      default:
+        break;
     }
   } else {
     console.log("Failed: form is invalid");

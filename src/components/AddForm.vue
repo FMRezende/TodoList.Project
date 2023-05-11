@@ -1,25 +1,15 @@
 <template>
   <form @submit.prevent="onFinish" autocomplete="off" class="mb-3">
     <div class="form-floating mb-3">
-      <input
-        type="text"
-        class="form-control"
-        id="floatingInput"
-        v-model="formState.tarea"
-        :class="{'is-invalid': !validTarea}"
-        required
-      />
+      <input type="text" class="form-control" id="floatingInput" v-model="formState.tarea"
+        :class="{ 'is-invalid': !validTarea }" required />
       <label for="floatingInput">Ingrese una tarea</label>
       <div class="invalid-feedback">
         Por favor, ingrese una tarea válida.
       </div>
     </div>
-    <button
-      v-if="!databaseStore.loading"
-      type="submit"
-      class="btn btn-primary btn-lg"
-      :disabled="databaseStore.loading || !validTarea"
-    >
+    <button v-if="!databaseStore.loading" type="submit" class="btn btn-primary btn-lg"
+      :disabled="databaseStore.loading || !validTarea">
       Agregar Tarea
     </button>
     <span v-else class="spinner-border spinner-border-sm"></span>
