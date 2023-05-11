@@ -76,7 +76,7 @@ const onFinish = async () => {
       alert("This email is already registered.");
       break;
     default:
-
+     
   }
 };
 
