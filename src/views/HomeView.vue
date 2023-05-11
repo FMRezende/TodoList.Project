@@ -1,6 +1,6 @@
 <template>
   <div class="container py-5">
-    <h1 class="my-5 text-center text-primary">Your To-do app</h1>
+    <h1 class="my-5 text-center text-primary">Home To-do app</h1>
     <img class="img-fluid mx-auto d-block mb-4" src="../images/box.1.jpg" alt="Vue logo" style="max-width: 20%">
     <p class="mb-4">Welcome, {{ userStore.user?.email }}</p>
 
